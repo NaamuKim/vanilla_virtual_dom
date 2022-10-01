@@ -1,0 +1,26 @@
+{
+  "name": "vanilla_virtual_dom",
+  "version": "1.0.0",
+  "description": "jsx나 템플릿꼴이나 함수의 실행된 꼴을 객체형태로 저장하고 있으면 됨",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel -w src --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NaamuKim/vanilla_virtual_dom.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NaamuKim/vanilla_virtual_dom/issues"
+  },
+  "homepage": "https://github.com/NaamuKim/vanilla_virtual_dom#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.19.3",
+    "@babel/core": "^7.19.3",
+    "@babel/plugin-transform-react-jsx": "^7.19.0",
+    "@babel/preset-env": "^7.19.3"
+  }
+}
