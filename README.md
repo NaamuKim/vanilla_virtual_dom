@@ -125,3 +125,66 @@ $app.innerHTML = `${JSON.stringify(mySearchForm, null, 2)}`;
 
 사용하면 jsx가 잘 적용되는 것을 확인할 수 있다.
 번외로 react에서는 babel이 jsx문법을 만나면 `React.createElement`를 하는 코드로 바꾼다.
+
+이제 만들어진 virtualdom을 다시 realdom으로 바꿔주어야한다.
+
+realdom을 만들기 위해 우리는 이용할 수 있는 DOM API들이 있다.
+우리는 type이 있으므로 `document.createElement(type)`을 이용해서 새로운 엘리먼트를 만들 수 있다.
+또 우리는 props들을 등록해주어야하는데 `$el.setAttribute(속성키(ex: 'class'), 속성값(ex: 'search__input'))`를 이용하여 등록할 수 있을 것이다.
+
+이제 관련 코드를 살펴보자.
+
+```
+function createRealElement(node) {
+  if (typeof node === 'string') {
+    return document.createTextNode(node);
+  }
+  const $el = document.createElement(node.type);
+  Object.entries(node.props || {})
+    .filter(([attr, value]) => value)
+    .forEach(([attr, value]) => $el.setAttribute(attr, value));
+
+  try {
+    node.children.map(createRealElement).forEach((child) => $el.appendChild(child));
+  } catch (err) {
+    console.error(err);
+    console.log(node + '에서 에러가 발생하였습니다.');
+  }
+
+  return $el;
+}
+```
+
+node가 태그가 아닌 텍스트 node 이면 문자열로 들어올 것이다.
+텍스트 노드는 `document.createTextNode()`를 통해서 만들어준다.
+
+```
+  if (typeof node === 'string') {
+    return document.createTextNode(node);
+  }
+```
+
+props를 등록해줘야할 필요가 있다.
+속성 값이 없는 것을 필터링 해주고 만들어진 element에 속성을 더한다.
+
+```
+  Object.entries(node.props || {})
+    .filter(([attr, value]) => value)
+    .forEach(([attr, value]) => $el.setAttribute(attr, value));
+```
+
+이제 자식을 재귀적으로 등록할 차례이다.
+그냥 map안에 createRealElement를 넣어주는 것만으로도 구현이 가능하다.
+
+```
+  try {
+    node.children.map(createRealElement).forEach((child) => $el.appendChild(child));
+  } catch (err) {
+    console.error(err);
+    console.log(node + '에서 에러가 발생하였습니다.');
+  }
+```
+
+### 출처(참고문헌)
+
+- [준일님 블로그](https://junilhwang.github.io/TIL/Javascript/Design/Vanilla-JS-Virtual-DOM/#_4-diff-%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%80%E1%85%A9%E1%84%85%E1%85%B5%E1%84%8C%E1%85%B3%E1%86%B7-%E1%84%8C%E1%85%A5%E1%86%A8%E1%84%8B%E1%85%AD%E1%86%BC)
