@@ -2,10 +2,10 @@
 
 jsx나 템플릿꼴이나 함수의 실행된 꼴을 객체형태로 저장하고 있으면 됨
 
-그러면 컴포넌트가 함수이고 리턴값이 템플릿이라고 하자.
+내가 만들 컴포넌트는 함수형이고 리턴값이 템플릿이나 JSX형식이라고 하자.
 상태가 변했을 때 흐름은
 
-1. 상태가 변한 것을 감지 (옵저버나 여러 방법으로)
+1. 상태가 변한 것을 감지 (pub/sub패턴을 이용하거나 프록시를 이용하거나 등등)
 2. virtual dom을 실제 HTML ELEMENT로 바꾼다.
 3. 루트에 삽입한다.
 
@@ -87,11 +87,12 @@ createVirtualElement('main',{id:'app'},
     )
 ```
 
-으로 children에 다시 createElement를 return 하는 재귀적인 구조로 작성할 수 있다.
-하지만 이런것은 jsx를 이용하면 이렇게 보기 안좋게 쓸 필요 없이 그냥 html처럼 사용할 수 있다.
+으로 children에 다시 createElement를 return 하는 재귀적인 구조로 작성할 수 있다. <br/>
+하지만 jsx를 이용하면 이렇게 직접함수로 객체 리터럴을 감쌀필요없이 html꼴로
+사용할 수 있다.
 
-그러면 babel 이용하여 직접 html형태의 템플릿을 만들어보자
-babel jsx 세팅을 해주고
+그러면 babel 이용하여 직접 html형태의 가상돔을 만들어보자!
+babel.config.json 파일에 plugin-transform-react-jsx 플러그인을 사용한다고 명시해주자.
 
 ```
 // babel.config.json
@@ -101,7 +102,7 @@ babel jsx 세팅을 해주고
 }
 ```
 
-jsx만드는 함수라고 아래처럼 명명해준 뒤에
+jsx pragma를 이용하여 해당 함수가 리턴한 jsx 템플릿을 감싸야한다고 babel이 알 수 있도록 명시해주자.
 
 ```
 /** @jsx createVirtualElement */

@@ -4,14 +4,18 @@
   "description": "jsx나 템플릿꼴이나 함수의 실행된 꼴을 객체형태로 저장하고 있으면 됨",
   "main": "index.js",
   "scripts": {
-    "build": "babel -w src --out-dir dist"
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NaamuKim/vanilla_virtual_dom.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "virtual-dom",
+    "vanilla"
+  ],
+  "author": "naamukim",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/NaamuKim/vanilla_virtual_dom/issues"
@@ -21,6 +25,15 @@
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.19.3",
     "@babel/plugin-transform-react-jsx": "^7.19.0",
-    "@babel/preset-env": "^7.19.3"
+    "@babel/preset-env": "^7.19.3",
+    "babel-loader": "^8.2.5",
+    "clean-webpack-plugin": "^4.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   }
 }
