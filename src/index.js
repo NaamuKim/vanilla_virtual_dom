@@ -1,7 +1,4 @@
-/** @jsx createVirtualElement */
-function createVirtualElement(type, props, ...children) {
-  return { type, props, children };
-}
+import SearchForm from './Components/SearchForm'
 
 function createRealElement(node) {
   if (typeof node === 'string') {
@@ -22,13 +19,10 @@ function createRealElement(node) {
   return $el;
 }
 
-const mySearchForm = createRealElement(
-  <form class='search'>
-    <input class='search__input' placeholder='무엇을 검색하실건가요?' />
-    <button class='search__button'>검색</button>
-  </form>
+const Main = createRealElement(
+  SearchForm()
 );
 
 const $app = document.getElementById('app');
 
-$app.appendChild(mySearchForm);
+$app.appendChild(Main);
