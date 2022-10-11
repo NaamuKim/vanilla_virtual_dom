@@ -1,4 +1,5 @@
 import SearchForm from './Components/SearchForm';
+import SearchList from './Components/SearchList';
 
 function createRealElement(node) {
   if (typeof node === 'string') {
@@ -10,19 +11,20 @@ function createRealElement(node) {
     .forEach(([attr, value]) => $el.setAttribute(attr, value));
 
   try {
-    node.children.map(createRealElement).forEach((child) => $el.appendChild(child));
+    node.children.map(createRealElement).forEach(child => {
+      $el.appendChild(child);
+    });
   } catch (err) {
     console.error(err);
-    console.log(`${node}에서 에러가 발생하였습니다.`);
+    console.log(`${JSON.stringify(node)}에서 에러가 발생하였습니다.`);
   }
 
   return $el;
 }
 
-const Main = createRealElement(
-  SearchForm(),
-);
-
+const realForm = createRealElement(SearchForm());
+const realList = createRealElement(SearchList());
 const $app = document.getElementById('app');
 
-$app.appendChild(Main);
+$app.appendChild(realForm);
+$app.appendChild(realList);
