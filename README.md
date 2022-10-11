@@ -10,7 +10,9 @@ jsx나 템플릿꼴이나 함수의 실행된 꼴을 객체형태로 저장하�
 3. 루트에 삽입한다.
 
 ### 일단 jsx를 babel로 바꿔서 써보자.
-
+- JSX는 문법이다.
+- JSX사용하면 뭐가 좋을까?
+- 왜 babel을 사용해야할까?
 ---
 
 ### html(xml) 구조를 객체로 나타내려면?
@@ -185,6 +187,17 @@ props를 등록해줘야할 필요가 있다.
     console.log(node + '에서 에러가 발생하였습니다.');
   }
 ```
+
+이러한 과정을 완성한 부분은 [여기서](https://github.com/NaamuKim/vanilla_virtual_dom/commit/8727664051af462f93244e768dd402cceed9d198)볼 수 있다.
+화면은 이렇게 보인다.
+
+하지만 우리는 여러 JS파일을 만들어서 사용할 것이고 컴포넌트를 분리할 필요도 있다.
+그렇다면 어떻게 virtualDom을 만드는 함수를 분리해놓고 사용할 수 있을까?
+babel `"@babel/plugin-transform-react-jsx"` 설정에 `{fragma: 커스텀한virtualElement만드는함수이름}` 을 추가해줄 수 있겠다.
+하지만 나는 이 프로젝트에서 여러개의 파일과 디렉토리를 만들어 파일과 디렉토리 이름을 바탕으로 무엇을 하는 지 찾아가기 좋게 만드려고한다.
+하지만 여러개의 파일을 서버에 요청하는 것은 리소스가 크기 때문에 webpack을 이용한 번들링을 하려고 한다.
+개발환경, 배포환경을 구분하기 위해
+webpack.common.js, webpack.dev.js, webpack.prod.js를 나누어 주고 각각을 설정해주었다.
 
 ### 출처(참고문헌)
 

@@ -1,4 +1,4 @@
-import SearchForm from './Components/SearchForm'
+import SearchForm from './Components/SearchForm';
 
 function createRealElement(node) {
   if (typeof node === 'string') {
@@ -13,14 +13,14 @@ function createRealElement(node) {
     node.children.map(createRealElement).forEach((child) => $el.appendChild(child));
   } catch (err) {
     console.error(err);
-    console.log(node + '에서 에러가 발생하였습니다.');
+    console.log(`${node}에서 에러가 발생하였습니다.`);
   }
 
   return $el;
 }
 
 const Main = createRealElement(
-  SearchForm()
+  SearchForm(),
 );
 
 const $app = document.getElementById('app');
