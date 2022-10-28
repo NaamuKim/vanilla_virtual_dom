@@ -1,30 +1,48 @@
 import SearchForm from './Components/SearchForm';
 import SearchList from './Components/SearchList';
-
-function createRealElement(node) {
-  if (typeof node === 'string') {
-    return document.createTextNode(node);
-  }
-  const $el = document.createElement(node.type);
-  Object.entries(node.props || {})
-    .filter(([attr, value]) => value)
-    .forEach(([attr, value]) => $el.setAttribute(attr, value));
-
-  try {
-    node.children.map(createRealElement).forEach(child => {
-      $el.appendChild(child);
-    });
-  } catch (err) {
-    console.error(err);
-    console.log(`${JSON.stringify(node)}에서 에러가 발생하였습니다.`);
-  }
-
-  return $el;
-}
-
+import createRealElement from './core/createRealElement';
+import './index.scss';
+import { updateElement } from './core/updateElement';
+const lists = [
+  {
+    id: 1,
+    todo: "YOU DON'T KNOW JS 읽기",
+    isDone: false,
+    reviewCount: 0,
+    completedCount: 5,
+  },
+  {
+    id: 2,
+    todo: '가상돔 만들기',
+    isDone: false,
+    reviewCount: 1,
+    completedCount: 5,
+  },
+];
+const newLists = [
+  {
+    id: 1,
+    todo: "YOU DON'T KNOW JS 읽기",
+    isDone: false,
+    reviewCount: 0,
+    completedCount: 5,
+  },
+  {
+    id: 2,
+    todo: 'diff 알고리즘 적용',
+    isDone: false,
+    reviewCount: 1,
+    completedCount: 5,
+  },
+];
 const realForm = createRealElement(SearchForm());
-const realList = createRealElement(SearchList());
+const realList = SearchList(lists);
+const realList2 = SearchList(newLists);
+
 const $app = document.getElementById('app');
 
-$app.appendChild(realForm);
-$app.appendChild(realList);
+updateElement({ parentNode: $app, newNode: realList });
+
+setTimeout(() => {
+  updateElement({ parentNode: $app, newNode: realList2, oldNode: realList });
+}, 1000);

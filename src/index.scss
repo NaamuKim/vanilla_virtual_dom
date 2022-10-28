@@ -1,0 +1,14 @@
+@import 'global/styles/reset.scss';
+@import 'Components/SearchForm/styles.scss';
+body {
+  display: flex;
+  font-family: 'Noto Sans KR', sans-serif;
+  height: 100%;
+}
+
+#app {
+  position: relative;
+  max-width: 1080px;
+  width: 560px;
+  margin: 0 auto;
+}
